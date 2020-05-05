@@ -52,7 +52,7 @@
 <script src="{{ asset('backend/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/assets/dist/js/adminlte.js') }}"></script>
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
 @yield('scripts')
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Tag;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
@@ -24,7 +25,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.tags.index', ['tags'=> Tag::latest()->get()]);
     }
 
     /**
@@ -34,7 +35,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.tags.create');
     }
 
     /**
@@ -45,51 +46,68 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|min:2|max:200'
+        ]);
+
+
+        Tag::create(['name' => $request->name]);
+
+        return redirect()->route('tags.index')->with('toast_success', 'New tag added.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function show(Tag $tag)
     {
-        //
+        return back();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('admins.tags.edit', ['tag'=>$tag]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tag  $tag
+     * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $this->validate($request,[
+            'name' => 'nullable|string|min:2|max:200'
+        ]);
+
+        if(isset($request->name)){
+            $tag->name = $request->name;
+            $tag->save();
+        }
+
+        return redirect()->route('tags.index')->with('toast_success', 'tag updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return back()->with('toast_success', 'tag deleted.');
     }
 }

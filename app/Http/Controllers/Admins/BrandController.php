@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Brand;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BrandController extends Controller
 {
@@ -46,15 +47,17 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required|stirng|min:2|max:200',
-            'image' => 'nullable|image|max:2024',
-            'description' => 'nullable|stirng|min:15|max:255' 
+            'name' => 'required|string|min:2|max:200',
+            'image' => 'required|image|max:2024',
+            'description' => 'nullable|string|min:15|max:255' 
         ]);
+        // dd($request->all());
 
         // image create
         if (request()->hasFile('image')) {
             //get file
             $image = $request->image;
+            // dd($image);
             //get extension
             $type = $image->extension();
             //set name
@@ -110,9 +113,9 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $this->validate($request,[
-            'name' => 'required|stirng|min:2|max:200',
+            'name' => 'nullable|string|min:2|max:200',
             'image' => 'nullable|image|max:2024',
-            'description' => 'nullable|stirng|min:15|max:255' 
+            'description' => 'nullable|string|min:15|max:255' 
         ]);
 
         if(isset($request->name)){

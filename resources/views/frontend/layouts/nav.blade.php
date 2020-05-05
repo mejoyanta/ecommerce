@@ -13,14 +13,19 @@
                                 </a>
                             </li>
                             <li class="mainmenu__item">
-                                <a href="shop-sidebar.html" class="mainmenu__link">
+                                <a href="{{ route('shop') }}" class="mainmenu__link">
                                     <span class="mm-text">Shop</span>
                                     {{-- <span class="tip">Hot</span> --}}
                                 </a>
                             </li>
                             <li class="mainmenu__item">
-                                <a href="shop-collections.html" class="mainmenu__link">
+                                <a href="{{ route('collections') }}" class="mainmenu__link">
                                     <span class="mm-text">Collections</span>
+                                </a>
+                            </li>
+                            <li class="mainmenu__item">
+                                <a href="{{ route('brands') }}" class="mainmenu__link">
+                                    <span class="mm-text">Brands</span>
                                 </a>
                             </li>
                         </ul>
@@ -205,8 +210,18 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Collection
+                            <a href="{{ route('shop') }}">
+                                Shop
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('collections') }}">
+                                Collections
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('brands') }}">
+                                Brands
                             </a>
                         </li>
                     </ul>

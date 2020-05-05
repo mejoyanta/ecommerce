@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="{{ route('dashboard') }}" class="brand-link">
-    <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    <img src="{{ asset('backend/assets/dist/img/AdminLTELogo.png') }}" alt="Airi Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">HasTech</span>
+    <span class="brand-text"><b>Ai</b>ri</span>
   </a>
 
   <!-- Sidebar -->
@@ -11,7 +11,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('backend/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">
@@ -31,31 +31,108 @@
           </a>
         </li>
         {{-- End Dashboard nav section --}}
-        {{-- Semester nav section --}}
-        {{-- <li class="nav-item has-treeview {{ Request::routeIs(['semesters.create', 'semesters.index']) ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ Request::routeIs(['semesters.create', 'semesters.index']) ? 'menu-open' : '' }}">
+        {{-- Category nav section --}}
+        <li class="nav-item has-treeview {{ Request::routeIs(['categories.create', 'categories.index']) ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::routeIs(['categories.create', 'categories.index']) ? 'menu-open' : '' }}">
             <i class="nav-icon fas fa-copy"></i>
             <p>
-              Semesters
+              Categories
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('semesters.create') }}" class="nav-link {{ Request::routeIs('semesters.create') ? 'active' : '' }}">
+              <a href="{{ route('categories.create') }}" class="nav-link {{ Request::routeIs('categories.create') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Create New Semesters</p>
+                <p>Create New Category</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('semesters.index') }}" class="nav-link {{ Request::routeIs('semesters.index') ? 'active' : '' }}">
+              <a href="{{ route('categories.index') }}" class="nav-link {{ Request::routeIs('categories.index') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>All Semesters List</p>
+                <p>All Category List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {{-- End Category nav section --}}
+        {{-- Brand nav section --}}
+        <li class="nav-item has-treeview {{ Request::routeIs(['brands.create', 'brands.index']) ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::routeIs(['brands.create', 'brands.index']) ? 'menu-open' : '' }}">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Brands
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('brands.create') }}" class="nav-link {{ Request::routeIs('brands.create') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create New Brand</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('brands.index') }}" class="nav-link {{ Request::routeIs('brands.index') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All Brand List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {{-- End Brand nav section --}}
+        
+        {{-- Tag nav section --}}
+        {{-- <li class="nav-item has-treeview {{ Request::routeIs(['tags.create', 'tags.index']) ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::routeIs(['tags.create', 'tags.index']) ? 'menu-open' : '' }}">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Tags
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('tags.create') }}" class="nav-link {{ Request::routeIs('tags.create') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create New Tag</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('tags.index') }}" class="nav-link {{ Request::routeIs('tags.index') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All Tag List</p>
               </a>
             </li>
           </ul>
         </li> --}}
-        {{-- End Semester nav section --}}
+        {{-- End Tag nav section --}}
+        
+        {{-- Product nav section --}}
+        <li class="nav-item has-treeview {{ Request::routeIs(['products.create', 'products.index']) ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::routeIs(['products.create', 'products.index']) ? 'menu-open' : '' }}">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Products
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('products.create') }}" class="nav-link {{ Request::routeIs('products.create') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create New Product</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('products.index') }}" class="nav-link {{ Request::routeIs('products.index') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All Product List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        {{-- End Product nav section --}}
         
       </ul>
     </nav>
