@@ -10,6 +10,18 @@ Route::get('/collections/{id}', 'FrontEndController@categoryWiseProduct')->name(
 Route::get('/shop', 'FrontEndController@shop')->name('shop');
 Route::get('/brands', 'FrontEndController@brands')->name('brands');
 Route::get('/brands/{id}', 'FrontEndController@brandWiseProduct')->name('brands.product');
+Route::get('/search', 'FrontEndController@search')->name('search');
+
+//Cart actions
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::post('/cart/{product}/add', 'CartController@store')->name('cart.add');
+Route::put('/cart/{id}/update', 'CartController@update')->name('cart.update');
+Route::get('/cart/{id}', 'CartController@destroy')->name('cart.destroy');
+//End cart actions
+//Checkout actions
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::post('/checkout/store', 'CheckoutController@store')->name('checkout.store');
+//End Checkout actions
 
 
 Auth::routes();

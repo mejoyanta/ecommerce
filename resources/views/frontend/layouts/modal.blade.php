@@ -42,12 +42,18 @@
                         {{ $product->sort_desc }}
                     </p>
                     <div class="product-action d-flex flex-row align-items-center mb--30 mb-md--20">
-                        <div class="quantity">
-                            <input type="number" class="quantity-input" name="qty" id="quick-qty" value="1" min="1">
-                        </div>
-                        <button type="button" class="btn btn-style-1 btn-semi-large add-to-cart" onclick="window.location.href='#'">
-                            Add To Cart
-                        </button>
+                        
+                        <form action="{{ route('cart.add', $product->id) }}" method="post" class="form--action mb--30 mb-sm--20">
+                            @csrf
+                            <div class="product-action flex-row align-items-center">
+                                <div class="quantity">
+                                    <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1">
+                                </div>
+                                <button type="submit" class="btn btn-style-1 btn-large add-to-cart">
+                                    Add To Cart
+                                </button>
+                            </div>  
+                        </form>
                     </div>  
                     <div class="product-extra mb--30 mb-md--20">
                         <a href="#" class="font-size-12"><i class="fa fa-map-marker"></i>Find store near you</a>

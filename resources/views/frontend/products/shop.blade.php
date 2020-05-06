@@ -41,9 +41,15 @@
                                                             <i class="dl-icon-view"></i>
                                                         </span>
                                                     </a>
-                                                    <a class="add_to_cart_btn action-btn" href="cart.html" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                                
+                                                    <a class="add_to_cart_btn action-btn" href="{{ route('cart.add', $product->id) }}" onclick="event.preventDefault(); document.getElementById('add_item_{{$product->id}}').submit();" data-toggle="tooltip" data-placement="top" title="Add to Cart">
                                                         <i class="dl-icon-cart29"></i>
                                                     </a>
+
+                                                    <form method="post" action="{{ route('cart.add', $product->id) }}" id="add_item_{{$product->id}}" style="display: none;">
+                                                        @csrf
+                                                        <input type="number" name="quantity" value="1">
+                                                    </form>
                                                 </div>
                                             </div>
                                         </figure>
@@ -104,39 +110,6 @@
                         </div>
                         <!-- Product Brand Widget End -->
 
-                        <!-- Category Widget Start -->
-                        <div class="product-widget tag-widget mb--35 mb-md--30">
-                            <h3 class="widget-title">Categories</h3>
-                            <div class="tagcloud">
-                                <a href="shop-sidebar.html">chair</a>
-                                <a href="shop-sidebar.html">deco</a>
-                                <a href="shop-sidebar.html">dress</a>
-                                <a href="shop-sidebar.html">fashion</a>
-                                <a href="shop-sidebar.html">furniture</a>
-                                <a href="shop-sidebar.html">light</a>
-                                <a href="shop-sidebar.html">living</a>
-                                <a href="shop-sidebar.html">sofa</a>
-                                <a href="shop-sidebar.html">table</a>
-                                <a href="shop-sidebar.html">women</a>
-                            </div>
-                        </div>
-                        <!-- Category Widget Start -->
-                        
-                        <!-- Promo Widget Start -->
-                        <div class="product-widget promo-widget">
-                            <div class="banner-box banner-type-3 banner-type-3-2 banner-hover-1">
-                                <div class="banner-inner">
-                                    <div class="banner-image">
-                                        <img src="/frontsite/assets/img/banner/ad-banner.jpg" alt="Banner">
-                                    </div>
-                                    <div class="banner-info">
-                                        <h2 class="banner-title-11">New <br> <strong>Season</strong></h2>
-                                    </div>
-                                    <a class="banner-link banner-overlay" href="shop-sidebar.html">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Promo Widget End -->
                     </div>
                 </div>
             </div>

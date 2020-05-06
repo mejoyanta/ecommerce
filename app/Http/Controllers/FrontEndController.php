@@ -47,4 +47,11 @@ class FrontEndController extends Controller
         $products = Category::find($id)->products()->latest()->paginate(20);
         return view('frontend.products.shop',compact('products'));
     }
+
+    public function search()
+    {
+        $products = Product::where('title','like', '%'.request('search') .'%')->paginate(20);
+
+        return view('frontend.products.shop',compact('products'));
+    }
 }

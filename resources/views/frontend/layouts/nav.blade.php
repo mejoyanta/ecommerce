@@ -46,12 +46,6 @@
                 </div>
                 <div class="col-xl-5 col-lg-4 col-md-9 col-8">
                     <ul class="header-toolbar text-right">
-                        <li class="header-toolbar__item d-none d-lg-block">
-                            <a href="#sideNav" class="toolbar-btn">
-                                <i class="dl-icon-menu2"></i>
-                            </a>                                    
-                        </li>
-
                         <li class="header-toolbar__item user-info-menu-btn">
                             <a href="#">
                                 <i class="fa fa-user-circle-o"></i>
@@ -71,24 +65,15 @@
                                         <a href="my-account.html">My Account</a>
                                     </li>
                                     <li>
-                                        <a href="cart.html">Shopping Cart</a>
+                                        <a href="{{ route('cart.index') }}">Shopping Cart</a>
                                     </li>
                                     <li>
-                                        <a href="checkout.html">Check Out</a>
-                                    </li>
-                                    <li>
-                                        <a href="wishlist.html">Wishlist</a>
-                                    </li>
-                                    <li>
-                                        <a href="order-tracking.html">Order tracking</a>
-                                    </li>
-                                    <li>
-                                        <a href="compare.html">compare</a>
+                                        <a href="{{ route('checkout.index') }}">Check Out</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                           {{-- <i class="fas fa-sign-out-alt"></i> --}}
+                                           
                                             Logout
                                         </a>
 
@@ -102,7 +87,9 @@
                         <li class="header-toolbar__item">
                             <a href="#miniCart" class="mini-cart-btn toolbar-btn">
                                 <i class="dl-icon-cart4"></i>
-                                <sup class="mini-cart-count">2</sup>
+                                @if(\Cart::getContent()->count()>0)
+                                    <sup class="mini-cart-count">{{\Cart::getContent()->count()}}</sup>
+                                @endif
                             </a>
                         </li>
                         <li class="header-toolbar__item">
@@ -153,19 +140,10 @@
                                     <a href="my-account.html">My Account</a>
                                 </li>
                                 <li>
-                                    <a href="cart.html">Shopping Cart</a>
+                                    <a href="{{ route('cart.index') }}">Shopping Cart</a>
                                 </li>
                                 <li>
-                                    <a href="checkout.html">Check Out</a>
-                                </li>
-                                <li>
-                                    <a href="wishlist.html">Wishlist</a>
-                                </li>
-                                <li>
-                                    <a href="order-tracking.html">Order tracking</a>
-                                </li>
-                                <li>
-                                    <a href="compare.html">compare</a>
+                                    <a href="{{ route('checkout.index') }}">Check Out</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}"

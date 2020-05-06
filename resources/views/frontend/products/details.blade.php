@@ -8,7 +8,6 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li><a href="{{ route('index') }}">Home</a></li>
-                    {{-- <li><a href="shop-sidebar.html">Shop Pages</a></li> --}}
                     <li class="current"><span>Product Details</span></li>
                 </ul>
             </div>
@@ -107,12 +106,13 @@
                         <p class="product-short-description mb--45 mb-sm--20">
                             {{ $product->sort_desc}}
                         </p>
-                        <form action="#" class="form--action mb--30 mb-sm--20">
+                        <form action="{{ route('cart.add', $product->id) }}" method="post" class="form--action mb--30 mb-sm--20">
+                            @csrf
                             <div class="product-action flex-row align-items-center">
                                 <div class="quantity">
-                                    <input type="number" class="quantity-input" name="qty" id="qty" value="1" min="1">
+                                    <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1">
                                 </div>
-                                <button type="button" class="btn btn-style-1 btn-large add-to-cart">
+                                <button type="submit" class="btn btn-style-1 btn-large add-to-cart">
                                     Add To Cart
                                 </button>
                             </div>  
@@ -296,10 +296,14 @@
                                                 </div>
                                                 <div class="airi-product-action">
                                                     <div class="product-action">
-                                                        <a class="add_to_cart_btn action-btn" href="cart.html" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                        <a class="add_to_cart_btn action-btn" href="{{ route('cart.add', $item->id) }}" onclick="event.preventDefault(); document.getElementById('add_item_{{$item->id}}').submit();" data-toggle="tooltip" data-placement="top" title="Add to Cart">
                                                             <i class="dl-icon-cart29"></i>
                                                         </a>
-                                                        {{-- @include('frontend.layouts.modal') --}}
+
+                                                        <form method="post" action="{{ route('cart.add', $item->id) }}" id="add_item_{{$item->id}}" style="display: none;">
+                                                            @csrf
+                                                            <input type="number" name="quantity" value="1">
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </figure>
