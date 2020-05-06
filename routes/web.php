@@ -28,7 +28,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
-
+//admin Actions
 Route::group(['prefix' => 'admin','namespace' => 'Admins'], function() {
     Route::group(['namespace' => 'Auth'], function() {
         Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
@@ -40,4 +40,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admins'], function() {
     Route::resource('/categories', 'CategoryController')->except('show');
     Route::resource('/tags', 'TagController')->except('show');
     Route::resource('/products', 'ProductController')->except('show');
+    Route::get('/orders/pending', 'OrdersController@pendingOrders')->name('orders.pending');
+    Route::get('/orders/delivered', 'OrdersController@deliveredOrders')->name('orders.delivered');
+    Route::put('/orders/{id}/make-deliver', 'OrdersController@makeOrderToDelivered')->name('orders.makedelivered');
 });

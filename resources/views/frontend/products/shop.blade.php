@@ -81,35 +81,44 @@
                         <div class="product-widget categroy-widget mb--35 mb-md--30">
                             <h3 class="widget-title">Categories</h3>
                             <ul class="prouduct-categories product-widget__list">
-                                <li><a href="">Accessories</a><span class="count">(0)</span></li>
-                                <li><a href="">Brands</a><span class="count">(0)</span></li>
-                                <li><a href="">Clothing</a><span class="count">(1)</span></li>
-                                <li><a href="">Fashions</a><span class="count">(21)</span></li>
-                                <li><a href="">Furniture</a><span class="count">(20)</span></li>
-                                <li><a href="">Gifts</a><span class="count">(0)</span></li>
-                                <li><a href="">Kids</a><span class="count">(0)</span></li>
-                                <li><a href="">Men</a><span class="count">(0)</span></li>
-                                <li><a href="">New in</a><span class="count">(0)</span></li>
-                                <li><a href="">Outlet</a><span class="count">(0)</span></li>
-                                <li><a href="">Shoes</a><span class="count">(0)</span></li>
-                                <li><a href="">Wallets</a><span class="count">(0)</span></li>
-                                <li><a href="">Women</a><span class="count">(0)</span></li>
+                                @foreach($categories as $category)
+                                <li>
+                                    <a href="{{ route('collections.product',$category->id) }}">
+                                        {{ $category->name }}
+                                    </a>
+                                    <span class="count">({{$category->products->count()}})</span>
+                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- Category Widget Start -->
-                        
                         <!-- Product Brand Widget Start -->
                         <div class="product-widget product-widget--brand mb--40 mb-md--30">
                             <h3 class="widget-title">Brands</h3>
                             <ul class="product-widget__list">
-                                <li><a href="shop-sidebar.html">Airi</a><span class="count">(2)</span></li>
-                                <li><a href="shop-sidebar.html">Mango</a><span class="count">(2)</span></li>
-                                <li><a href="shop-sidebar.html">Valention</a><span class="count">(2)</span></li>
-                                <li><a href="shop-sidebar.html">Zara</a><span class="count">(2)</span></li>
+                                @foreach($brands as $brand)
+                                <li>
+                                    <a href="{{ route('brands.product',$brand->id) }}">
+                                        {{ $brand->name }}
+                                    </a>
+                                    <span class="count">({{$brand->products->count()}})</span>
+                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- Product Brand Widget End -->
-
+                        <!-- Category Widget Start -->
+                        <div class="product-widget tag-widget mb--35 mb-md--30">
+                            <h3 class="widget-title">Categories</h3>
+                            <div class="tagcloud">
+                                @foreach($categories as $category)
+                                    <a href="{{ route('collections.product',$category->id) }}">
+                                        {{ $category->name }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!-- Category Widget Start -->
                     </div>
                 </div>
             </div>

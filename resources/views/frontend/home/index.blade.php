@@ -51,8 +51,18 @@
                                                 <td class="wide-column">{{ $order->date }}</td>
                                                 <td>{{ $order->status }}</td>
                                                 <td class="wide-column">{{ $order->total }} for {{$order->details->count() }} item</td>
-                                                <td><a href="#" class="btn btn-medium btn-style-1">View</a></td>
+                                                <td>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-medium btn-style-1" data-toggle="modal" data-target="#order_{{$order->id}}">
+                                                      view
+                                                    </button>
+
+                                                    <!-- Modal Start -->
+                                                    @include('frontend.layouts.modaltable')
+                                                    <!-- Modal End -->
+                                                </td>
                                             </tr>
+
                                             @endforeach
                                         </tbody>
                                     </table>

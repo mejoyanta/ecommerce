@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Brand;
+use App\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $brands = Brand::all();
+
+        $categories = Category::all();
+
+        view()->share(['brands'=> $brands, 'categories'=>$categories]);
     }
 }

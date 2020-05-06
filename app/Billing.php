@@ -33,4 +33,14 @@ class Billing extends Model
         'ship_phone',
         'ship_email'
     ];
+
+    public function getNameAttribute()
+    {
+        return "{$this->fname} {$this->lname}";
+    }
+
+    public function getAddressAttribute()
+    {
+        return "{$this->street_address}, {$this->town}, {$this->state}, {$this->country}";
+    }
 }

@@ -62,7 +62,7 @@
                                     @endif
                                 @else
                                     <li>
-                                        <a href="my-account.html">My Account</a>
+                                        <a href="{{route('dashboard')}}">My Account</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('cart.index') }}">Shopping Cart</a>
@@ -137,7 +137,7 @@
                                 @endif
                             @else
                                 <li>
-                                    <a href="my-account.html">My Account</a>
+                                    <a href="{{route('dashboard')}}">My Account</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('cart.index') }}">Shopping Cart</a>
@@ -148,7 +148,6 @@
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                       {{-- <i class="fas fa-sign-out-alt"></i> --}}
                                         Logout
                                     </a>
 
