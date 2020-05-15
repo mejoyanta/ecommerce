@@ -49,7 +49,7 @@
 	            		<td>{{ $loop->iteration }}</td>
 	            		<td>{{ $order->id }}</td>
 	            		<td>{{ $item->product->title }}</td>
-	            		<td>{{ $item->product->price }}</td>
+	            		<td>{{ $item->product->discounted_price }}</td>
 	            		<td>{{ $item->quantity }}</td>
 	            		<td>{{ $item->total }}</td>
 	            	</tr>

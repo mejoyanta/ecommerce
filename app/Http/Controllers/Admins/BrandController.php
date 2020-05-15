@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admins;
 
+use Image;
 use App\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,11 +64,13 @@ class BrandController extends Controller
             //set name
             $image_name = time() . '.' . $type;
             //set directory image_name
-            $dir = 'img/brands';
+            $dir = 'img/brands/';
             //move file
-            $image->move($dir, $image_name);
+            // $image->move($dir, $image_name);
+            Image::make($image)->crop(300,300)->save($dir.$image_name);
+
             
-            $image_name = $dir.'/'.$image_name;
+            $image_name = $dir.$image_name;
         }else {
             $image_name = 'img/brands/brands.jpg';
         }
@@ -119,6 +122,7 @@ class BrandController extends Controller
         ]);
 
         if(isset($request->name)){
+        	// return $request->name;
             $brand->name = $request->name;
         }
 
@@ -142,9 +146,17 @@ class BrandController extends Controller
         if(isset($request->description)){
             $brand->description = $request->description;
         }
+        // dd($brand->isDirty());
 
-        $brand->save();
-        return redirect()->route('brands.index')->with('toast_success', 'Brand updated.');
+        if($brand->isDirty()){
+	        $brand->save();
+	        return redirect()->route('brands.index')->with('toast_success', 'Brand updated.');
+
+        }else{
+	        return redirect()->route('brands.index')->with('toast_info', 'You haven\'t made any changes.');
+
+        }
+
     }
 
     /**
