@@ -14465,6 +14465,7 @@ a, button, img, input, span, .main-navigation .mainmenu__item.menu-item-has-chil
     margin-bottom: 1rem; }
 
 .airi-product {
+  overflow: hidden;
   position: relative;
   text-align: left;
   word-wrap: break-word;

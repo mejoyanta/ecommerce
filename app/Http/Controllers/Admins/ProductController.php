@@ -62,7 +62,7 @@ class ProductController extends Controller
             'discount' => 'required|numeric',
             'sort_desc' => 'required|string|max:200',
             'long_desc' => 'nullable|string',
-            // 'image' => 'required|image',
+            'image' => 'required',
         ]);
 
         // dd($request->all());
@@ -80,8 +80,14 @@ class ProductController extends Controller
                 $dir = 'frontsite/assets/img/products';
                 // dd($short_image.$long_image);
                 //move file
-                Photo::make($image)->resize(360,414)->save(public_path($dir .'/'. $short_image));
-                Photo::make($image)->resize(1000,1300)->save(public_path($dir .'/'. $long_image));
+                Photo::make($image)->fit(360, 414, function ($constraint) {
+                    $constraint->upsize();
+                })->save(public_path($dir .'/'. $short_image));
+
+                Photo::make($image)->fit(1000, 1300, function ($constraint) {
+                    $constraint->upsize();
+                })->save(public_path($dir .'/'. $long_image));
+
                 Image::create([
                     'product_id'=>$product->id,
                     'sm_img'=>$short_image,
