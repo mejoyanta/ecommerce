@@ -67,7 +67,12 @@ class BrandController extends Controller
             $dir = 'img/brands/';
             //move file
             // $image->move($dir, $image_name);
-            Image::make($image)->crop(300,300)->save($dir.$image_name);
+            $img = Image::make($image);
+            //->crop(300,300)->save($dir.$image_name);
+
+            $img->fit(800, 600, function ($constraint) {
+                $constraint->upsize();
+            })->save($dir.$image_name);
 
             
             $image_name = $dir.$image_name;
@@ -135,11 +140,17 @@ class BrandController extends Controller
             //set name
             $image_name = time() . '.' . $type;
             //set directory image_name
-            $dir = 'img/brands';
-            //move file
-            $image->move($dir, $image_name);
+            $dir = 'img/brands/';
+            // $image->move($dir, $image_name);
+            $img = Image::make($image);
+            //->crop(300,300)->save($dir.$image_name);
 
-            $image_name = $dir.'/'.$image_name;
+            $img->fit(800, 600, function ($constraint) {
+                $constraint->upsize();
+            })->save($dir.$image_name);
+
+
+            $image_name = $dir.$image_name;
             $brand->image = $image_name;
         }
 

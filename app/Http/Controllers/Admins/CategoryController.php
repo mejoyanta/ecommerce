@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admins;
 
+use Image;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -62,11 +63,14 @@ class CategoryController extends Controller
             //set name
             $image_name = time() . '.' . $type;
             //set directory image_name
-            $dir = 'img/categories';
+            $dir = 'img/categories/';
             //move file
-            $image->move($dir, $image_name);
+            $img = Image::make($image);
+            $img->fit(800, 600, function ($constraint) {
+                $constraint->upsize();
+            })->save($dir.$image_name);
             
-            $image_name = $dir.'/'.$image_name;
+            $image_name = $dir.$image_name;
         }else {
             $image_name = 'img/categories/categories.jpg';
         }
@@ -130,11 +134,14 @@ class CategoryController extends Controller
             //set name
             $image_name = time() . '.' . $type;
             //set directory image_name
-            $dir = 'img/categories';
+            $dir = 'img/categories/';
             //move file
-            $image->move($dir, $image_name);
+            $img = Image::make($image);
+            $img->fit(800, 600, function ($constraint) {
+                $constraint->upsize();
+            })->save($dir.$image_name);
 
-            $image_name = $dir.'/'.$image_name;
+            $image_name = $dir.$image_name;
             $category->image = $image_name;
         }
 
