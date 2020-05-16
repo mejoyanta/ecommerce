@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ route('dashboard') }}" class="brand-link">
+  <a href="{{ route('admin.dashboard') }}" class="brand-link">
     <img src="{{ asset('backend/assets/dist/img/AdminLTELogo.png') }}" alt="Airi Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
     <span class="brand-text"><b>Ai</b>ri</span>
