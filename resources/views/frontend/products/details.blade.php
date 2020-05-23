@@ -27,8 +27,7 @@
                         <div class="product-gallery vertical-slide-nav">
                             <div class="product-gallery__thumb">
                                 <div class="product-gallery__thumb--image">
-                                    <div class="nav-slider slick-vertical" 
-                                    data-options='{
+                                    <div class="nav-slider slick-vertical" data-options='{
                                     "autoplay": true, 
                                     "autoplaySpeed": 5000, 
                                     "vertical": true, 
@@ -43,9 +42,9 @@
                                     "arrowNext_md": "dl-icon-right"
                                     }'>
                                         @foreach($product->images()->take(4)->get() as $img)
-                                            <figure class="product-gallery__thumb--single">
-                                                <img src="/frontsite/assets/img/products/{{ $img->sm_img }}" alt="Products">
-                                            </figure>
+                                        <figure class="product-gallery__thumb--single">
+                                            <img src="/frontsite/assets/img/products/{{ $img->sm_img }}" alt="Products">
+                                        </figure>
                                         @endforeach
                                     </div>
                                 </div>
@@ -55,14 +54,17 @@
                                     <div class="product-gallery__wrapper">
                                         <div class="main-slider product-gallery__full-image image-popup">
                                             @foreach($product->images()->take(4)->get() as $img)
-                                                <figure class="product-gallery__image zoom">
-                                                    <img src="/frontsite/assets/img/products/{{ $img->lg_img }}" alt="Products">
-                                                </figure>
+                                            <figure class="product-gallery__image zoom">
+                                                <img src="/frontsite/assets/img/products/{{ $img->lg_img }}"
+                                                    alt="Products">
+                                            </figure>
                                             @endforeach
                                         </div>
                                         <div class="product-gallery__actions">
-                                            <button class="action-btn btn-zoom-popup"><i class="dl-icon-zoom-in"></i></button>
-                                            <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM" class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
+                                            <button class="action-btn btn-zoom-popup"><i
+                                                    class="dl-icon-zoom-in"></i></button>
+                                            <a href="https://www.youtube.com/watch?v=Rp19QD2XIGM"
+                                                class="action-btn video-popup"><i class="dl-icon-format-video"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,35 +89,43 @@
                         <h3 class="product-title">{{ $product->title }}</h3>
                         <span class="product-stock in-stock float-right">
                             @if($product->storage > 0)
-                                <i class="dl-icon-check-circle1"></i>
-                                in stock
+                            <i class="dl-icon-check-circle1"></i>
+                            in stock
                             @else
-                                <i class="fa fa-times-circle"></i>
-                                out stock
+                            <i class="fa fa-times-circle"></i>
+                            out stock
                             @endif
                         </span>
                         <div class="product-price-wrapper mb--40 mb-md--10">
                             <span class="money">TK {{ $product->discounted_price }}</span>
                             @if($product->discount > 0)
-                                <span class="product-price-old">
-                                    <span class="money">TK {{$product->price }}</span>
-                                </span>
+                            <span class="product-price-old">
+                                <span class="money">TK {{$product->price }}</span>
+                            </span>
                             @endif
                         </div>
                         <div class="clearfix"></div>
                         <p class="product-short-description mb--45 mb-sm--20">
                             {{ $product->sort_desc}}
                         </p>
-                        <form action="{{ route('cart.add', $product->id) }}" method="post" class="form--action mb--30 mb-sm--20">
-                            @csrf
+
+                        <form class="form--action mb--30 mb-sm--20"
+                            @submit.prevent="productFormSubmit({{$product->id}})">
                             <div class="product-action flex-row align-items-center">
-                                <div class="quantity">
-                                    <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1">
+                                <div class="d-flex product-input-box-style">
+                                    <button class="btn btn-style-1" type="button" @click.prevent="qty--"
+                                        :disabled="qty < 2">-</button>
+                                    <output>@{{qty}}</output>
+                                    <button class="btn btn-style-1" type="button" @click.prevent="qty++"
+                                        :disabled="qty>={{$product->storage}}">+</button>
                                 </div>
-                                <button type="submit" class="btn btn-style-1 btn-large add-to-cart">
-                                    Add To Cart
-                                </button>
-                            </div>  
+                                <div>
+                                    <button type="submit" class="btn btn-style-1 btn-large add-to-cart">
+                                        Add To Cart
+                                    </button>
+                                </div>
+
+                            </div>
                         </form>
                         <div class="product-extra mb--40 mb-sm--20">
                             <a href="#" class="font-size-12"><i class="fa fa-map-marker"></i>Find store near you</a>
@@ -123,11 +133,13 @@
                         </div>
                         <div class="product-summary-footer d-flex justify-content-between flex-sm-row flex-column">
                             <div class="product-meta">
-                                <span class="posted_in font-size-12">Categories: 
-                                    <a href="{{ route('collections.product', $product->category->id) }}">{{ $product->category->name }}</a>
+                                <span class="posted_in font-size-12">Categories:
+                                    <a
+                                        href="{{ route('collections.product', $product->category->id) }}">{{ $product->category->name }}</a>
                                 </span>
-                                <span class="posted_in font-size-12">Brands: 
-                                    <a href="{{ route('brands.product', $product->brand->id) }}">{{ $product->brand->name }}</a>
+                                <span class="posted_in font-size-12">Brands:
+                                    <a
+                                        href="{{ route('brands.product', $product->brand->id) }}">{{ $product->brand->name }}</a>
                                 </span>
                             </div>
                             <div class="product-share-box">
@@ -164,27 +176,33 @@
             <div class="row justify-content-center pt--45 pt-lg--50 pt-md--55 pt-sm--35">
                 <div class="col-12">
                     <div class="product-data-tab tab-style-1">
-                        <div class="nav nav-tabs product-data-tab__head mb--40 mb-md--30" id="product-tab" role="tablist">
-                            <a class="product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true"> 
+                        <div class="nav nav-tabs product-data-tab__head mb--40 mb-md--30" id="product-tab"
+                            role="tablist">
+                            <a class="product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab"
+                                href="#nav-description" role="tab" aria-selected="true">
                                 <span>Description</span>
                             </a>
-                            <a class="product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true">
+                            <a class="product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab"
+                                href="#nav-reviews" role="tab" aria-selected="true">
                                 <span>Reviews(1)</span>
                             </a>
                         </div>
                         <div class="tab-content product-data-tab__content" id="product-tabContent">
-                            <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
+                            <div class="tab-pane fade show active" id="nav-description" role="tabpanel"
+                                aria-labelledby="nav-description-tab">
                                 <div class="product-description">
                                     {!! $product->long_desc !!}
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
+                            <div class="tab-pane fade" id="nav-reviews" role="tabpanel"
+                                aria-labelledby="nav-reviews-tab">
                                 <div class="product-reviews">
                                     <h3 class="review__title">1 review for Waxed-effect pleated skirt</h3>
                                     <ul class="review__list">
                                         <li class="review__item">
                                             <div class="review__container">
-                                                <img src="{{ asset('frontsite') }}/assets/img/others/comment-icon-2.png" alt="Review Avatar" class="review__avatar">
+                                                <img src="{{ asset('frontsite') }}/assets/img/others/comment-icon-2.png"
+                                                    alt="Review Avatar" class="review__avatar">
                                                 <div class="review__text">
                                                     <div class="product-rating float-right">
                                                         <span>
@@ -201,7 +219,9 @@
                                                         <span class="review__published-date">November 20, 2018</span>
                                                     </div>
                                                     <div class="clearfix"></div>
-                                                    <p class="review__description">Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque. Vestibulum ut sem laoreet, feugiat tellus at, hendrerit arcu.</p>
+                                                    <p class="review__description">Aliquam egestas libero ac turpis
+                                                        pharetra, in vehicula lacus scelerisque. Vestibulum ut sem
+                                                        laoreet, feugiat tellus at, hendrerit arcu.</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -210,7 +230,8 @@
                                         <span class="reply-title"><strong>Add a review</strong></span>
                                         <form action="#" class="form">
                                             <div class="form-notes mb--20">
-                                                <p>Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+                                                <p>Your email address will not be published. Required fields are marked
+                                                    <span class="required">*</span></p>
                                             </div>
                                             <div class="form__group mb--30 mb-sm--20">
                                                 <div class="revew__rating">
@@ -226,11 +247,13 @@
                                             <div class="form__group mb--30 mb-sm--20">
                                                 <div class="form-row">
                                                     <div class="col-sm-6 mb-sm--20">
-                                                        <label class="form__label" for="name">Name<span class="required">*</span></label>
+                                                        <label class="form__label" for="name">Name<span
+                                                                class="required">*</span></label>
                                                         <input type="text" name="name" id="name" class="form__input">
-                                                    </div>  
+                                                    </div>
                                                     <div class="col-sm-6">
-                                                        <label class="form__label" for="email">email<span class="required">*</span></label>
+                                                        <label class="form__label" for="email">email<span
+                                                                class="required">*</span></label>
                                                         <input type="email" name="email" id="email" class="form__input">
                                                     </div>
                                                 </div>
@@ -238,15 +261,18 @@
                                             <div class="form__group mb--30 mb-sm--20">
                                                 <div class="form-row">
                                                     <div class="col-12">
-                                                        <label class="form__label" for="email">Your Review<span class="required">*</span></label>
-                                                        <textarea name="review" id="review" class="form__input form__input--textarea"></textarea>
+                                                        <label class="form__label" for="email">Your Review<span
+                                                                class="required">*</span></label>
+                                                        <textarea name="review" id="review"
+                                                            class="form__input form__input--textarea"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form__group">
                                                 <div class="form-row">
                                                     <div class="col-12">
-                                                        <input type="submit" value="Submit" class="btn btn-style-1 btn-submit">
+                                                        <input type="submit" value="Submit"
+                                                            class="btn btn-style-1 btn-submit">
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,60 +294,65 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="airi-element-carousel product-carousel nav-vertical-center" 
-                            data-slick-options='{
+                            <div class="airi-element-carousel product-carousel nav-vertical-center" data-slick-options='{
                             "spaceBetween": 30,
                             "slidesToShow": 4,
                             "slidesToScroll": 1,
                             "arrows": true, 
                             "prevArrow": "dl-icon-left", 
                             "nextArrow": "dl-icon-right" 
-                            }'
-                            data-slick-responsive='[
+                            }' data-slick-responsive='[
                                 {"breakpoint":1200, "settings": {"slidesToShow": 3} },
                                 {"breakpoint":991, "settings": {"slidesToShow": 2} },
                                 {"breakpoint":450, "settings": {"slidesToShow": 1} }
-                            ]'
-                            >
-                                @forelse($product->category->products()->whereNotIn('id',[$product->id])->inRandomOrder()->take(8)->get() as $item )
-                                    <div class="airi-product">
-                                        <div class="product-inner">
-                                            <figure class="product-image">
-                                                <div class="product-image--holder">
-                                                    <a href="{{ route('product.details', $item->id) }}">
-                                                        @foreach($item->images()->take(2)->get() as $key => $img)
-                                                            <img src="/frontsite/assets/img/products/{{$img->lg_img}}" alt="{{$item->title}}" class="{{$key == 0 ? 'primary-image' : 'secondary-image'}}">
-                                                        @endforeach
+                            ]'>
+                                @forelse($product->category->products()->whereNotIn('id',[$product->id])->inRandomOrder()->take(8)->get()
+                                as $item )
+                                <div class="airi-product">
+                                    <div class="product-inner">
+                                        <figure class="product-image">
+                                            <div class="product-image--holder">
+                                                <a href="{{ route('product.details', $item->id) }}">
+                                                    @foreach($item->images()->take(2)->get() as $key => $img)
+                                                    <img src="/frontsite/assets/img/products/{{$img->lg_img}}"
+                                                        alt="{{$item->title}}"
+                                                        class="{{$key == 0 ? 'primary-image' : 'secondary-image'}}">
+                                                    @endforeach
+                                                </a>
+                                            </div>
+                                            <div class="airi-product-action">
+                                                <div class="product-action">
+                                                    <a @click.prevent="showProductModal({{$item}})"
+                                                        class="quickview-btn action-btn" data-toggle="tooltip"
+                                                        data-placement="top" title="Quick Shop">
+                                                        <span data-toggle="modal" data-target="#productModal">
+                                                            <i class="dl-icon-view"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a class="add_to_cart_btn action-btn"
+                                                        @click.prevent="addItemToCart({{$item->id}})"
+                                                        data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                        <i class="dl-icon-cart29"></i>
                                                     </a>
                                                 </div>
-                                                <div class="airi-product-action">
-                                                    <div class="product-action">
-                                                        <a class="add_to_cart_btn action-btn" href="{{ route('cart.add', $item->id) }}" onclick="event.preventDefault(); document.getElementById('add_item_{{$item->id}}').submit();" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                                                            <i class="dl-icon-cart29"></i>
-                                                        </a>
-
-                                                        <form method="post" action="{{ route('cart.add', $item->id) }}" id="add_item_{{$item->id}}" style="display: none;">
-                                                            @csrf
-                                                            <input type="number" name="quantity" value="1">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </figure>
-                                            <div class="product-info text-center">
-                                                <h3 class="product-title">
-                                                    <a href="{{ route('product.details', $item->id) }}">{{ $item->title }}</a>
-                                                </h3>
-                                                <span class="product-price-wrapper">
-                                                    <span class="money">TK {{$item->discounted_price}}</span>
-                                                    @if($product->discount > 0)
-                                                        <span class="product-price-old">
-                                                            <span class="money">TK {{$item->price }}</span>
-                                                        </span>
-                                                    @endif
-                                                </span>
                                             </div>
+                                        </figure>
+                                        <div class="product-info text-center">
+                                            <h3 class="product-title">
+                                                <a
+                                                    href="{{ route('product.details', $item->id) }}">{{ $item->title }}</a>
+                                            </h3>
+                                            <span class="product-price-wrapper">
+                                                <span class="money">TK {{$item->discounted_price}}</span>
+                                                @if($product->discount > 0)
+                                                <span class="product-price-old">
+                                                    <span class="money">TK {{$item->price }}</span>
+                                                </span>
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
+                                </div>
                                 @empty
                                 <div class="alert alert-danger">
                                     No related porduct here...

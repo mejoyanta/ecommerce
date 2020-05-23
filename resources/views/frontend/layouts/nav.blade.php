@@ -35,11 +35,11 @@
                 <div class="col-lg-2 col-md-3 col-4 text-lg-center">
                     <!-- Logo Start Here -->
                     <a href="{{ route('index')}}" class="logo-box">
-                        <figure class="logo--normal"> 
-                            <img src="{{ asset('frontsite') }}/assets/img/logo/logo.svg" alt="Logo"/>   
+                        <figure class="logo--normal">
+                            <img src="{{ asset('frontsite') }}/assets/img/logo/logo.svg" alt="Logo" />
                         </figure>
                         <figure class="logo--transparency">
-                            <img src="{{ asset('frontsite') }}/assets/img/logo/logo-white.png" alt="Logo"/>  
+                            <img src="{{ asset('frontsite') }}/assets/img/logo/logo-white.png" alt="Logo" />
                         </figure>
                     </a>
                     <!-- Logo End Here -->
@@ -52,44 +52,45 @@
                             </a>
                             <ul class="user-info-menu">
                                 @guest
-                                    <li>
-                                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                    @if (Route::has('register'))
-                                        <li>
-                                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                                        </li>
-                                    @endif
+                                <li>
+                                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                <li>
+                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                                @endif
                                 @else
-                                    <li>
-                                        <a href="{{route('dashboard')}}">My Account</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('cart.index') }}">Shopping Cart</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('checkout.index') }}">Check Out</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                           
-                                            Logout
-                                        </a>
+                                <li>
+                                    <a href="{{route('dashboard')}}">My Account</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('cart.index') }}">Shopping Cart</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('checkout.index') }}">Check Out</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </li>
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
                                 @endguest
                             </ul>
                         </li>
                         <li class="header-toolbar__item">
                             <a href="#miniCart" class="mini-cart-btn toolbar-btn">
                                 <i class="dl-icon-cart4"></i>
-                                @if(\Cart::getContent()->count()>0)
-                                    <sup class="mini-cart-count">{{\Cart::getContent()->count()}}</sup>
-                                @endif
+
+                                <sup class="mini-cart-count">@{{cart.quantity}}</sup>
+
                             </a>
                         </li>
                         <li class="header-toolbar__item">
@@ -98,7 +99,7 @@
                             </a>
                         </li>
                         <li class="header-toolbar__item d-lg-none">
-                            <a href="#" class="menu-btn"></a>                 
+                            <a href="#" class="menu-btn"></a>
                         </li>
                     </ul>
                 </div>
@@ -127,41 +128,42 @@
                         </a>
                         <ul class="user-info-menu">
                             @guest
-                                <li>
-                                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li>
-                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
+                            <li>
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                            <li>
+                                <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                            @endif
                             @else
-                                <li>
-                                    <a href="{{route('dashboard')}}">My Account</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('cart.index') }}">Shopping Cart</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('checkout.index') }}">Check Out</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
+                            <li>
+                                <a href="{{route('dashboard')}}">My Account</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('cart.index') }}">Shopping Cart</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('checkout.index') }}">Check Out</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
                             @endguest
                         </ul>
                     </li>
                     <li class="header-toolbar__item">
                         <a href="#miniCart" class="mini-cart-btn toolbar-btn">
                             <i class="dl-icon-cart4"></i>
-                            <sup class="mini-cart-count">2</sup>
+                            <sup class="mini-cart-count">@{{cart.quantity}}</sup>
                         </a>
                     </li>
                     <li class="header-toolbar__item">
@@ -170,7 +172,7 @@
                         </a>
                     </li>
                     <li class="header-toolbar__item d-lg-none">
-                        <a href="#" class="menu-btn"></a>                 
+                        <a href="#" class="menu-btn"></a>
                     </li>
                 </ul>
             </div>

@@ -20,7 +20,7 @@
         <div class="container-fluid">
             <div class="row shop-sidebar pt--45 pt-md--35 pt-sm--20 pb--60 pb-md--50 pb-sm--40">
                 <div class="col-lg-9 order-lg-2" id="main-content">
-                    <div class="shop-products"> 
+                    <div class="shop-products">
                         <div class="row grid-space-20 xxl-block-grid-4">
                             @foreach($products as $product)
                             <div class="col-lg-4 col-sm-6 mb--40 mb-md--30">
@@ -30,45 +30,46 @@
                                             <div class="product-image--holder">
                                                 <a href="{{ route('product.details', $product->id) }}">
                                                     @foreach($product->images()->take(2)->get() as $key => $img)
-                                                        <img src="/frontsite/assets/img/products/{{$img->lg_img}}" alt="{{$product->title}}" class="{{$key == 0 ? 'primary-image' : 'secondary-image'}}">
+                                                    <img src="/frontsite/assets/img/products/{{$img->lg_img}}"
+                                                        alt="{{$product->title}}"
+                                                        class="{{$key == 0 ? 'primary-image' : 'secondary-image'}}">
                                                     @endforeach
                                                 </a>
                                             </div>
                                             <div class="airi-product-action">
                                                 <div class="product-action">
-                                                    <a class="quickview-btn action-btn" data-toggle="tooltip" data-placement="top" title="Quick Shop">
-                                                        <span data-toggle="modal" data-target="#productModal_{{$product->id}}">
+                                                    <a @click.prevent="showProductModal({{$product}})"
+                                                        class="quickview-btn action-btn" data-toggle="tooltip"
+                                                        data-placement="top" title="Quick Shop">
+                                                        <span data-toggle="modal" data-target="#productModal">
                                                             <i class="dl-icon-view"></i>
                                                         </span>
                                                     </a>
-                                                                
-                                                    <a class="add_to_cart_btn action-btn" href="{{ route('cart.add', $product->id) }}" onclick="event.preventDefault(); document.getElementById('add_item_{{$product->id}}').submit();" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+
+                                                    <a @click.prevent="addItemToCart({{$product->id}})"
+                                                        class="add_to_cart_btn action-btn" data-toggle="tooltip"
+                                                        data-placement="top" title="Add to Cart">
                                                         <i class="dl-icon-cart29"></i>
                                                     </a>
-
-                                                    <form method="post" action="{{ route('cart.add', $product->id) }}" id="add_item_{{$product->id}}" style="display: none;">
-                                                        @csrf
-                                                        <input type="number" name="quantity" value="1">
-                                                    </form>
                                                 </div>
                                             </div>
                                         </figure>
                                         <div class="product-info text-center">
                                             <h3 class="product-title">
-                                                <a href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a>
+                                                <a
+                                                    href="{{ route('product.details', $product->id) }}">{{ $product->title }}</a>
                                             </h3>
                                             <span class="product-price-wrapper">
                                                 <span class="money">TK {{$product->discounted_price}}</span>
                                                 @if($product->discount > 0)
-                                                    <span class="product-price-old">
-                                                        <span class="money">TK {{$product->price }}</span>
-                                                    </span>
+                                                <span class="product-price-old">
+                                                    <span class="money">TK {{$product->price }}</span>
+                                                </span>
                                                 @endif
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                    @include('frontend.layouts.modal')
                             </div>
                             @endforeach
                         </div>
@@ -112,9 +113,9 @@
                             <h3 class="widget-title">Categories</h3>
                             <div class="tagcloud">
                                 @foreach($categories as $category)
-                                    <a href="{{ route('collections.product',$category->id) }}">
-                                        {{ $category->name }}
-                                    </a>
+                                <a href="{{ route('collections.product',$category->id) }}">
+                                    {{ $category->name }}
+                                </a>
                                 @endforeach
                             </div>
                         </div>

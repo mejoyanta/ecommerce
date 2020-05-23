@@ -16,10 +16,10 @@ class CartController extends Controller
     public function index()
     {
         $items = Cart::getContent();
-        if( $items->count() <= 0 ){
-            return back()->with('toast_error', 'Please add product to cart');
+        if ($items->count() <= 0) {
+            return redirect()->route('index')->with('toast_info', 'Please add product to cart');
         } else {
-            return view('frontend.carts.index',compact('items'));
+            return view('frontend.carts.index', compact('items'));
         }
     }
 
@@ -29,10 +29,10 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Product $product,Request $request)
+    public function store(Product $product, Request $request)
     {
         $image = $product->images()->first();
-        
+
         Cart::add(array(
             'id' => $product->id,
             'name' => $product->title,
@@ -40,10 +40,10 @@ class CartController extends Controller
             'quantity' => $request->quantity,
             'attributes' => array(
                 'image' => $image->sm_img
-            ),
+            )
         ));
 
-        return back();
+        return ['status' => 'success', 'message' => 'This product add into cart.'];
     }
 
     /**
@@ -52,9 +52,13 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function allInfo()
     {
-        //
+        return [
+            'items' => Cart::getContent(),
+            'total' => Cart::getSubTotal(),
+            'quantity' => Cart::getTotalQuantity(),
+        ];
     }
 
     /**
@@ -64,15 +68,23 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function increaseCart($id)
     {
-        Cart::update($id, array(
-          'quantity' => array(
-              'relative' => false,
-              'value' => $request->quantity
-          ),
-        ));
-        return back();
+        Cart::update($id, array('quantity' => 1));
+        return ['status' => 'success', 'message' => 'Cart updated'];
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function decreaseCart($id)
+    {
+        Cart::update($id, array('quantity' => -1));
+        return ['status' => 'success', 'message' => 'Cart updated'];
     }
 
     /**
@@ -84,6 +96,6 @@ class CartController extends Controller
     public function destroy($id)
     {
         Cart::remove($id);
-        return back();
+        return ['status' => 'success', 'message' => 'Item removed from cart.'];
     }
 }

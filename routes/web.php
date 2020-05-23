@@ -14,9 +14,11 @@ Route::get('/search', 'FrontEndController@search')->name('search');
 
 //Cart actions
 Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::post('/cart/{product}/add', 'CartController@store')->name('cart.add');
-Route::put('/cart/{id}/update', 'CartController@update')->name('cart.update');
-Route::get('/cart/{id}', 'CartController@destroy')->name('cart.destroy');
+Route::post('/cart/{product}/add', 'CartController@store');
+Route::put('/cart-increase/{product}', 'CartController@increaseCart');
+Route::put('/cart-decrease/{product}', 'CartController@decreaseCart');
+Route::delete('/cart/{id}', 'CartController@destroy');
+Route::get('cart-info', 'CartController@allInfo');
 //End cart actions
 //Checkout actions
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
@@ -29,11 +31,11 @@ Auth::routes();
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //admin Actions
-Route::group(['prefix' => 'admin','namespace' => 'Admins'], function() {
-    Route::group(['namespace' => 'Auth'], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admins'], function () {
+    Route::group(['namespace' => 'Auth'], function () {
         Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
-	    Route::post('/login', 'LoginController@login');
-	    Route::post('/logout', 'LoginController@logout')->name('admin.logout');
+        Route::post('/login', 'LoginController@login');
+        Route::post('/logout', 'LoginController@logout')->name('admin.logout');
     });
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
     Route::resource('/brands', 'BrandController')->except('show');

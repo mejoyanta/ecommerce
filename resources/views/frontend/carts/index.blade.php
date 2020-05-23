@@ -35,57 +35,51 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	@forelse($items as $item)
-	                                            <tr>
-	                                                <td class="product-remove text-left">
-	                                                	<a href="{{ route('cart.destroy',$item->id) }}"><i class="dl-icon-close"></i></a>
-	                                                	{{-- <a href="{{ route('cart.destroy',$item->id) }}"
-				                                           onclick="event.preventDefault(); document.getElementById('remove_{{$item->id}}').submit();">
-				                                           <i class="dl-icon-close"></i>
-				                                        </a>
-				                                        <form id="remove_{{$item->id}}" action="{{ route('cart.destroy',$item->id) }}" method="POST">
-				                                            @csrf
-				                                            @method('DELETE')
-				                                        </form> --}}
-	                                                </td>
-	                                                <td class="product-thumbnail text-left">
-	                                                    <img style="width: 70px;" src="/frontsite/assets/img/products/{{$item->attributes->image }}" alt="Product Thumnail">
-	                                                </td>
-	                                                <td class="product-name text-left wide-column">
-	                                                    <h3>
-	                                                        <a href="{{ route('product.details', $item->id) }}">
-	                                                        	{{ $item->name }}
-	                                                        </a>
-	                                                    </h3>
-	                                                </td>
-	                                                <td class="product-price">
-	                                                    <span class="product-price-wrapper">
-	                                                        <span class="money">TK {{$item->price}}</span>
-	                                                    </span>
-	                                                </td>
-	                                                <td class="product-quantity">
-	                                                    <div class="quantity">
-	                                                        <input type="number" class="quantity-input" name="qty" id="qty-1" value="{{$item->quantity}}" min="1">
-	                                                    <div class="dec qtybutton">-</div><div class="inc qtybutton">+</div></div>
-	                                                </td>
-	                                                <td class="product-total-price">
-	                                                    <span class="product-price-wrapper">
-	                                                        <span class="money"><strong>TK {{$item->getPriceSum()}}</strong></span>
-	                                                    </span>
-	                                                </td>
-	                                            </tr>
-                                            @empty
-                                            <tr>
-                                            	<td colspan="6">
-                                            		<h2 class="alert alert-danger">
-	                                            		Cart is empty!
-                                            		</h2>
-                                            	</td>
+                                            <tr v-for="(item,index) in cart.items" :key="index">
+                                                <td class="product-remove text-left">
+                                                    <a class="remove-from-cart remove"
+                                                        @click.prevent="removeItemFromCart(item)">
+                                                        <i class="dl-icon-close"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="product-thumbnail text-left">
+                                                    <img style="width:70px;" :src="item.attributes.image|imgSrcUrl"
+                                                        :alt="item.name">
+                                                </td>
+                                                <td class="product-name text-left wide-column">
+                                                    <h3>
+                                                        <a :href="item|productUrl">
+                                                            @{{ item.name }}
+                                                        </a>
+                                                    </h3>
+                                                </td>
+                                                <td class="product-price">
+                                                    <span class="product-price-wrapper">
+                                                        <span class="money">TK @{{item.price}}</span>
+                                                    </span>
+                                                </td>
+                                                <td class="product-quantity">
+                                                    <div class="quantity-section-styles">
+                                                        <button @click.prevent="decriseCart(item)"
+                                                            class="quantity-button-styles">-</button>
+                                                        <output>@{{item.quantity}}</output>
+                                                        <button @click.prevent="increaseCart(item)"
+                                                            class="quantity-button-styles">+</button>
+                                                    </div>
+                                                </td>
+                                                <td class="product-total-price">
+                                                    <span class="product-price-wrapper">
+                                                        <span class="money">
+                                                            <strong>
+                                                                TK @{{ item.price * item.quantity }}
+                                                            </strong>
+                                                        </span>
+                                                    </span>
+                                                </td>
                                             </tr>
-                                            @endforelse
                                         </tbody>
                                     </table>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -99,7 +93,7 @@
                                     <tbody>
                                         <tr>
                                             <th>Subtotal</th>
-                                            <td>TK {{ Cart::getSubTotal() }}</td>  
+                                            <td>TK @{{ cart.total }}</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping</th>
@@ -109,7 +103,7 @@
                                             <th>Total</th>
                                             <td>
                                                 <span class="product-price-wrapper">
-                                                    <span class="money">TK {{ Cart::getTotal() }}</span>
+                                                    <span class="money">TK @{{ cart.total }}</span>
                                                 </span>
                                             </td>
                                         </tr>

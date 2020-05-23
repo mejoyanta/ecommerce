@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth; 
+use Auth;
 use Cart;
 use App\Order;
 use App\Billing;
@@ -29,10 +29,10 @@ class CheckoutController extends Controller
     public function index()
     {
         $items = Cart::getContent();
-        if( $items->count() <= 0 ){
-            return back()->with('toast_error', 'Please add product to cart');
+        if ($items->count() <= 0) {
+            return redirect()->route('index')->with('toast_error', 'Please add product to cart');
         } else {
-            return view('frontend.carts.checkout',compact('items'));
+            return view('frontend.carts.checkout', compact('items'));
         }
     }
 
@@ -45,7 +45,7 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
-        $this->validate($request,[
+        $this->validate($request, [
             'fname' => 'required|string',
             'lname' => 'required|string',
             'company' => 'nullable|string',
@@ -84,12 +84,11 @@ class CheckoutController extends Controller
                 'total' => $row->getPriceSum(),
             ]);
         }
-// return $order;
+        // return $order;
 
         Cart::clear();
 
         return redirect()->route('dashboard')->with('toast_success', 'Your order confirmed.');
-
     }
 
     /**
